@@ -24,7 +24,27 @@ const ModalComp = ({ data, setData, dataEdit, isOpen, onClose }) => {
     if (emailAlreadyExists()) {
         return alert("E-mail já cadastrado!")
     }
+    if (Object.keys(dataEdit).length) {
+      data[dataEdit.index] = { name, email};
+    }
+
+    const newDataArray = !Object.keys(dataEdit).length
+      ? [...(data ? data: []), {name,email}]
+      : [...(data? data: [])];
+
+      localStorage.setItem("cad_cliente", JSON.stringify(newDataArray))
+
+      setData(newDataArray)
+      onClose()
   }
+
+  const emailAlreadyExists = () => {
+    if (dataEdit.email !== email && data?.length) {
+      return data.find((item)=> item.email === email);
+    }
+    return false;
+  }
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
