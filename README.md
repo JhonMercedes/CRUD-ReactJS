@@ -5,5 +5,5 @@ Proejto CRUD
 - react
 - javascript
 - vite
-- chakra para estilização
+- chakra-ui/react para estilização
   
