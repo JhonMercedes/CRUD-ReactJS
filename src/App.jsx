@@ -20,6 +20,11 @@ const  App = () => {
   const [data, setData] = useState([]);
   const [dataEdit, setDataEdit] = useState({});
 
+  const isMobile = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
   return (
     <Flex 
     h="100vh"
@@ -33,8 +38,49 @@ const  App = () => {
           Novo Cadastro
         </Button>
         <Box overFlow="auto" height="100%">
+          <Thead>
+            <Tr>
+              <Th maxW={isMobile ? 5 : 100 } fontSize="20px">Nome</Th>
+              <Th maxW={isMobile ? 5 : 100 } fontSize="20px">Email</Th>
+              <Th p={0}></Th>
+              <Th p={0}></Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data.map(({name, email}, index) => (
+              <Tr key={index} cursor="pointer " _hover={{bg: "gray.100"}}>
+                <Td maxW={isMobile ? 5: 100}>{name}</Td>
+                <Td maxW={isMobile ? 5: 100}>{email}</Td>
+                <Td p={0}>
+                  <EditIcon 
+                  fontSize={20}
+                  onClick={() => [
+                    setDataEdit({name, email, index}),
+                    onOpen(),
+                  ]}
+                  />
+                </Td>
+                <Td p={0}>
+                  <DeleteIcon
+                    fontSize={20}
+                    onClick={() => handleRemove(email)}
+                    />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
         </Box>
       </Box>
+      {isOpen && (
+        <ModalComp
+        isOpen={isOpen}
+        onClose={onClose}
+        data={data}
+        setData={setData}
+        dataEdit={dataEdit}
+        setDataEdit={setDataEdit}
+        />
+      )}
     </Flex>
   )
 };
