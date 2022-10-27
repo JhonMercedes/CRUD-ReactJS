@@ -63,7 +63,7 @@ const ModalComp = ({ data, setData, dataEdit, isOpen, onClose }) => {
                     />
                     
                 </Box><Box>
-                    <FormLabel>Nome</FormLabel>
+                    <FormLabel>E-mail</FormLabel>
                     <Input 
                         type="text"
                         value={email}
